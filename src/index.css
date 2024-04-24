@@ -1,0 +1,64 @@
+/*^ =================> General <=================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root{
+  --main-color: #009247;
+}
+
+.text-main{
+  color: var(--main-color);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5,h6{
+  margin: 0;
+}
+
+.w-fit{
+  width: fit-content;
+}
+/*^ =================> End General <=================== */
+
+
+/*? ========================> AuthLayout <======================== */
+
+.auth-layout{
+  background-image: linear-gradient(rgba(47, 140, 96, 0.5), rgba(0, 0, 0, 0.5)), url('./assets/Images/bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  font-family: "Inter", sans-serif;
+}
+
+.auth-layout img{
+  width: 60%;
+}
+
+.auth-layout .btn-register,.btn-forget{
+  text-decoration: none;
+}
+.auth-layout .btn-register:hover,.btn-forget:hover{
+  text-decoration: underline;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+  
+  .auth-layout .form-control{
+    padding: .75rem .75rem;
+    border-radius: .625rem;
+  }
+  
+  .auth-layout .btn {
+    --bs-btn-padding-x: 0.75rem;
+    --bs-btn-padding-y: .625rem;
+    --bs-btn-border-radius: .625rem;
+  }
+}
+
+/*? =========================> End AuthLayout <========================== */
