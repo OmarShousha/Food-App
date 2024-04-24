@@ -48,7 +48,6 @@ function App() {
       element: <AuthLayout/>,
       children:[
         {path:'',element: <Login/>},
-        // {path:'Food-App',element: <Login/>},
         {path:'login',element: <Login/>},
         {path:'register',element: <Register/>},
         {path:'forgetpass',element: <ForgetPass/>},
