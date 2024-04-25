@@ -20,23 +20,22 @@ export default function Notfound() {
       </nav>
 
       <div className="container bg-blac">
-        <div className="row vh-100 bg-dange justify-content-end align-items-md-center align-items-lg-end position-relative">
+        <div className="row vh-100 flex-column flex-lg-row justify-content-end align-items-center align-items-md-center align-items-lg-end gap-4 gap-md-0">
 
-          <div className="col-md-6 align-self-md-center ">
+          <div className="diva col-md-10 col-lg-6 align-self-lg-center">
 
-              <div className='pt-5 pt-md-0 ms-lg-5 ps-lg-5 mt-lg-5 d-flex flex-column align-items-center align-items-md-start bg-blac'>
-
-
-                  <h1 className='display-4 fw-bold pt-5 pt-md-0 m-0 ms-md-2 mt-4 mt-md-0'>Oops.</h1>
+              <div className='pt-md-0 ms-lg-5 ps-lg-5 pb-md-5 pb-lg-0 mt-md-5 mb-md-3 mb-lg-0 d-flex flex-column align-items-center align-items-lg-start'>
+                  <h1 className='display-4 fw-bold pt- pt-md-0 m-0 ms-md-2 mt-4 mt-md-0'>Oops.</h1>
                   <h2 className={`fw-semibold mb-4 display-5 ms-md-2 ${NotfoundCSS.header}`}>Page not found</h2>
                   <p className='mb-4 mb-lg-5 ms-md-2'>
                     This Page doesn’t exist or was removed! <br /> We suggest you  back to home.
                   </p>
                   <Link to='' className="btn btn-success w-50 ms-md-2">Back to <br /> Home</Link>
               </div>
+
           </div>
 
-          <div className="col-md-6 bg-inf m-0 p-0 d-flex" >
+          <div className="divo col-8 col-md-9 col-lg-6 m-0 p-0 d-flex">
               <div className='bg-dange align-self-end'>
                 <img src={notfoundImg} className='w-100' alt="" />
               </div>
