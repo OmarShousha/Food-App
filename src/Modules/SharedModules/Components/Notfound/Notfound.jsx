@@ -41,7 +41,7 @@ export default function Notfound() {
 
           </div>
 
-          <div className="col-10 col-md-9 col-lg-6 m-0 p-0 d-flex align-self-end">
+          <div className="col-9 col-md-9 col-lg-6 m-0 p-0 d-flex align-self-end">
               <div className='align-self-end'>
                 <img src={notfoundImg} className='w-100' alt="" />
               </div>
