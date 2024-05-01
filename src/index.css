@@ -19,6 +19,10 @@ h1,h2,h3,h4,h5,h6{
   margin: 0;
 }
 
+p{
+  margin: 0;
+}
+
 .w-fit{
   width: fit-content;
 }
@@ -62,3 +66,56 @@ h1,h2,h3,h4,h5,h6{
 }
 
 /*? =========================> End AuthLayout <========================== */
+
+
+
+/*& =========================> Start SideBar <========================== */
+.sidebar-container .ps-sidebar-container{
+  color: white;
+  background-color: #1F263E;
+  height: 100vh;
+  border-top-right-radius: 50px;
+  & .ps-menu-button{
+    transition: all 0.15s;
+  }
+  & .ps-menu-button:hover{
+    background-color: #00924D1A;
+  }
+  /* & .menu-img{
+    max-width: 450%; 
+    transition: max-width 0.15s ease; 
+  }
+  & .menu-img.collapsed {
+    max-width: 100px;
+  } */
+}
+
+
+/*& =========================> End SideBar <========================== */
+
+
+
+/** =========================> End SideBar <========================== */
+
+.header-container {
+  background: url(./assets/Images/header-bg-svg.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* width: 100%; */
+  /* border-radius: 500px; */
+}
+.header-container .header-img {
+  width: 70%;
+  
+}
+.bg-main{
+  background-color: #009247;
+
+}
+
+.w-p{
+  width: 60%;
+}
+
+/** =========================> End SideBar <========================== */

@@ -7,21 +7,17 @@ import Header from '../Header/Header'
 export default function MasterLayout() {
   return (
     <>
-    <div className="container">
-      <div className="row">
-        <div className="col-md-3">
-          <SideBar/>
-        </div>
-        <div className="col-md-9">
+      <div className="d-flex">
           <div>
+            <SideBar/>
+          </div>
+          <div className='w-100 p-2 p-md-3'>
             <Navbar/>
-            <Header/>
+            {/* <Header/> */}
             <Outlet/>
           </div>
-        </div>
       </div>
 
-    </div>
     </>
   )
 }

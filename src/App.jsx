@@ -18,7 +18,7 @@ import { jwtDecode } from 'jwt-decode'
 
 function App() {
 
-  let {loginData , setLoginData} = useState(null);
+  let [loginData , setLoginData] = useState(null);
   let saveLoginData = () =>{
     let encodedToken = localStorage.getItem('token');
     let decodedToken = jwtDecode(encodedToken);
