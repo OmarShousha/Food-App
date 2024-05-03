@@ -14,6 +14,7 @@ import Notfound from './Modules/SharedModules/Components/Notfound/Notfound'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { jwtDecode } from 'jwt-decode'
+import { RecipesData } from './Modules/RecipesModules/Components/RecipesData/RecipesData'
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       children:[
         {path:'',element: <Dashboard/>},
         {path:'recipes',element: <RecipesList/>},
+        {path:'recipesdata',element: <RecipesData/>},
         {path:'categories',element: <CategoriesList/>},
         {path:'users',element: <UsersList/>}
     ]

@@ -25,6 +25,11 @@ export default function SideBar() {
     <>
     <div className="sidebar-container">
       <Sidebar collapsed={isCollapse} className='border-0' >
+        {/* rootStyles={{
+          [`.${sidebarClasses.container}`]: {
+            backgroundColor: 'red',
+          },
+      }} */}
         <Menu className='bg-inf py-5'>
 
           {/* <MenuItem 
