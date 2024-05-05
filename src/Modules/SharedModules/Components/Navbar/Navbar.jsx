@@ -4,7 +4,8 @@ import avatar from '../../../../assets/Images/avatar.png'
 export default function Navbar() {
   return (
     <>
-    <nav className="navbar navbar-expand-sm rounded-4 navbar-light bg-secondary-subtle">
+    <nav className="navbar navbar-expand-sm rounded-4 navbar-light bg-body-secondary
+    ">
       <div className="container-fluid">
         <button className="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
