@@ -113,14 +113,16 @@ export const RecipesData = () => {
         <div className="col-md-12 bg-subheader rounded-4">
           <div>
             <SubHeader
-              title='Fill the Recipes !'
+              title={<span>Fill the <span className="text-success">Recipes!</span></span>}
               text='you can now fill the meals easily using the table and form , click here and sill it with the table !'/>
           </div>
         </div>
-        <div className="col-md-10 col-lg-7">
+        <div className="col-md-10 col-lg-7 bg-blac">
           <div className='p-3'>
-            <form onSubmit={handleSubmit(addRecipe)} action="" className='bg-info-subtl d-flex flex-column gap-3 rounded-4 p-3 my-3'>
+            <form onSubmit={handleSubmit(addRecipe)} action="" className='bg-info-subtl d-flex flex-column gap-3 rounded-4 p-lg-3 my-3'>
 
+
+                <div>
               <input {...register('name',{
                 required:'*Name is Required',
                 pattern:{
@@ -129,10 +131,12 @@ export const RecipesData = () => {
                 }
               })} type="text" className="form-control border-0 bg-body-secondary" placeholder='Recipe Name' />
               {errors.name && <span className='ms-2 text-danger'>{errors.name.message}</span>}
+                  
+              </div>
 
               
               <div>
-                <select className='form-control border-0 bg-body-secondary' {...register('tagId',{
+                <select className='my-form border-0 bg-body-secondary' {...register('tagId',{
                   required:'*Tag is required'
                 })}>
                   <option value="">
@@ -143,7 +147,7 @@ export const RecipesData = () => {
                 {errors.tagId && <span className='ms-2 text-danger'>{errors.tagId.message}</span>}
               </div>
 
-
+                <div>   
               <input {...register('price',{
                 required:'*Price is required',
                 pattern:{
@@ -152,41 +156,46 @@ export const RecipesData = () => {
                 }
               })} type="number" className="form-control border-0 bg-body-secondary" placeholder='Price' />
               {errors.price && <span className='ms-2 text-danger'>{errors.price.message}</span>}
+              </div>
 
 
             <div>
-              <select className='form-control border-0 bg-body-secondary' {...register('categoriesIds',{
+              <select className='my-form border-0 bg-body-secondary' {...register('categoriesIds',{
                 required:'*CategoriesIds is required'
               })}>
                 <option value="">
-                  Catgeories
+                      Catgeories 
                 </option>
                 {categoriesList.map((cat)=><option key={cat.id} className='px-' value={cat.id}>{cat.name}</option>)}
               </select>
-              {errors.categoriesIds && <span className='ms-2 text-danger'>{errors.categoriesIds.message}</span>}
-            </div>
+                  {errors.categoriesIds && <span className='ms-2 text-danger'>{errors.categoriesIds.message}</span>}
+              </div>
+                
+            
+               
 
-
+            <div>
             <textarea {...register('description',{
               required:'*Description is required'
             }
             )} className='form-control border-0 bg-body-secondary' placeholder='Description'></textarea>
             {errors.description && <span className='ms-2 text-danger'>{errors.description.message}</span>}
+            </div>
 
-
-            <input {...register('recipeImage',{
-                required:'*Image is required',
-                // pattern:{
-                //   value:/^\d{1,8}$/,
-                //   message:'Invalid Price' 
-                // }
-              })} type="file" className="form-control border-0 bg-body-secondary" placeholder='recipeImage' />
-              {errors.recipeImage && <span className='ms-2 text-danger'>{errors.recipeImage.message}</span>}
+            <div>  
+              <input {...register('recipeImage',{
+                  required:'*Image is required',
+                  // pattern:{
+                  //   value:/^\d{1,8}$/,
+                  //   message:'Invalid Price' 
+                  // }
+                })} type="file" className="form-control border-0 bg-body-secondary" placeholder='recipeImage' />
+                {errors.recipeImage && <span className='ms-2 text-danger'>{errors.recipeImage.message}</span>}
+            </div>
               
             <div className='bg-blac d-flex justify-content-end gap-4'>
               {/* <button className='btn btn-danger mt-4 w-25'>Cancel</button> */}
-              <button onClick={addRecipe} className='btn btn-success mt-4 w-25'>Add</button>
-
+              <button onClick={addRecipe} className='btn btn-success mt-2 w-25'>Add</button>
             </div>
 
 

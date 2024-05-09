@@ -1,12 +1,11 @@
 import React from 'react'
 import logo from '../../../../assets/Images/4.svg'
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Bounce, toast } from 'react-toastify';
+import axios from 'axios';
 
-export default function Login({saveLoginData}) {
+export const VerifyAccount = () => {
 
   const navigate = useNavigate();
 
@@ -14,12 +13,11 @@ export default function Login({saveLoginData}) {
 
   const mySubmit = async (data) => {
 
-    // *==============> if it is good <==============
     try{
-      let response = await axios.post('https://upskilling-egypt.com:3006/api/v1/Users/Login',data);
-      console.log(response);
-      localStorage.setItem('token',response.data.token)
-      toast.success('Logged in successfully' , {
+      let response = await axios.put('https://upskilling-egypt.com:3006/api/v1/Users/verify',data);
+
+      console.log(data);
+      toast.success('Account Verified', {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -30,12 +28,23 @@ export default function Login({saveLoginData}) {
         theme: "dark",
         transition: Bounce,
         });
-      navigate('/dashboard');
+      
+      navigate('/login');
     }
 
-    // &===========> if it found an error <===========
     catch(error){
-      toast.error('Something went wrong!');
+      toast.error('Account Verification failed', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+        });
+      console.log(error.response.data.message);
     }
   }
 
@@ -54,10 +63,11 @@ export default function Login({saveLoginData}) {
 
               {/* ============> Form <============== */}
               <div>
-                <h3 className='fw-bold mb-1'>Log in</h3>
+                <h3 className='fw-bold mb-1'>Verify Account</h3>
                 <p className='text-muted mb-4'>Welcome back! please enter your details</p>
                 
-                <form onSubmit={handleSubmit(mySubmit)}>
+                  <form onSubmit={handleSubmit(mySubmit)}>
+                    
                   <div className="input-group mb-3 pt-2">
                     <span className="input-group-text" id="basic-addon1">
                       <i className='fa fa-envelope text-muted'></i>
@@ -85,26 +95,22 @@ export default function Login({saveLoginData}) {
                     <input 
                     type="text" 
                     className="form-control bg-body-secondary" 
-                    placeholder="Password" 
+                    placeholder="Enter the code" 
                     aria-label="Username" 
                     aria-describedby="basic-addon1"
-                    {...register('password',{
-                      required:'Password is required',
+                    {...register('code',{
+                      required:'code is required',
                       pattern:{
-                        value:/^(?=.*[a-zA-Z])(?=.*\d).{5,}$/,
-                        message:'Invaild password'
+                        value:/^[A-Z0-9a-z]{4}$/,
+                        message:'Invaild code'
                       }
                     }
                     )} />
                   </div>
-                  {errors.password && <p className='alert alert-danger'>{errors.password.message}</p> }
+                  {errors.code && <p className='alert alert-danger'>{errors.code.message}</p> }
 
-                  <div className='d-flex justify-content-between mb-4 pb-2'>
-                    <Link to='/register' className='btn-register text-muted fw-semibold'>Regiter Now?</Link>
-                    <Link to='/forgetpass' className='btn-forget fw-semibold text-main'>Forget Password?</Link>
-                  </div>
 
-                  <button type='submit' className="btn btn-success w-100 fw-bold">Login</button>
+                  <button type='submit' className="btn btn-success w-100 mt-3 py-2 fw-semibold">Verify</button>
                 </form>
               </div>
             </div>

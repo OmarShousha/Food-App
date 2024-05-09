@@ -12,18 +12,27 @@ export const SubHeader = (props) => {
 
   return (
     <>
-      <header className='d-flex justify-content-between align-items-center p-5'>
-        <div className='bg-dange'>
-          <h3 className='mb-2'>{props.title}</h3>
-          <p className='w-75'>{props.text}</p>
-        </div>
-        <div>
-          <button onClick={goToRecipes} className='btn btn-success d-flex justify-content-center align-items-center gap-2 px-4 fw-semibold'>
-            <p className='py-1 me-1'>All Recipes</p>
-            <i className='fa-solid fa-arrow-right mt-1'></i>
-          </button>
-        </div>
-      </header>
+    <div className="container">
+        <div className="row p-3 p-lg-5">
+          
+        <div className="col-md-6 bg-warnin mb-3 mb-md-0">
+          <div>
+            <h3 className='mb-2'>{props.title}</h3>
+            <p className=''>{props.text}</p>
+          </div>
+          </div>
+          
+        <div className="col-md-6 bg-inf d-flex align-items-center">
+            <div className='bg-warnin w-100 d-flex justify-content-center justify-content-md-end'>
+              <button onClick={goToRecipes} className='btn btn-success d-flex justify-content-center align-items-center gap-2 px-lg-4 fw-semibold'>
+                <p className='py- me-2'>All Recipes</p>
+                <i className='fa-solid fa-arrow-right mt-1'></i>
+              </button>
+            </div>
+          </div>
+          
+      </div>
+    </div>
     </>
   )
 }

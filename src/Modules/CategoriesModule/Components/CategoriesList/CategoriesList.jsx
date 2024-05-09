@@ -14,35 +14,34 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 
 export default function CategoriesList() {
-  //&& ========================================================== &&
-  const [updateCategory, setUpdateCategory] = useState(null);
 
-  const handleUpdateClick = (category) => {
-    setUpdateCategory(category);
-    handleShow(); // Open the modal for updating
-  };
-
-  //&& ========================================================== &&
-
-  let [catId, seCatId] = useState();
-
+  
+  let [ categoriesList, setGategoriesList ] = useState([]);
+  let { register, handleSubmit, formState: { errors } } = useForm();
+  
+  const [catId, setCatId] = useState();
+  
+  
+  const modalTitle = catId ? 'Update' : 'Add';
+  const buttonText = catId ? 'Update' : 'Add';
+  
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  const handleShow = (category) => {
+    setShow(true);
+    setCatId(category ? category.id : null);
+  };
+  
   const [showDelete, setShowDelete] = useState(false);
   const handleCloseDelete = () => setShowDelete(false);
   const handleShowDelete = (id) => {
-    seCatId(id);
+    setCatId(id);
+    console.log(id);
     setShowDelete(true);
   };
   
-  let [ categoriesList, setGategoriesList ] = useState([]);
-  let {register, handleSubmit, formState:{errors}} = useForm();
-  
-  
 
-  // ^====================> Getting Data <=================^
+  // &====================> Getting Data <=======================^
   const getGategoriesList = async () =>{
     try{
       let response = await axios.get('https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=10&pageNumber=1',
@@ -54,36 +53,79 @@ export default function CategoriesList() {
       console.log(error);
     }
   };
-  
-  // *====================> Adding Category <=================^
-  const onSubmit = async (data)=>{
-    try{
+
+  //*===========================> Adding <========================^
+  const addCategory = async (data) => {
+    try {
       let response = await axios.post('https://upskilling-egypt.com:3006/api/v1/Category/',
-      data, {
-        headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}
-      });
+        data,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        }
+      );
+      console.log(data);
       getGategoriesList();
       handleClose();
-      toast.success('Item Added ✅',{
-        position:'bottom-right',
-        autoClose: 2000,
+      toast.success(response.statusText, {
+        position: "bottom-right",
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "dark",
         transition: Bounce,
-      });
-      console.log(response);
-    }
-    catch(error){
-      // toast.error(error.response.data.message);
-      console.log(error);
+        });
+      }
+      catch(error) {
+      toast.error('Somthing went wrong', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+        });
     }
   }
 
-  // !====================> Deleting Category <=================^
+  // ^====================> Updating Category <======================^
+  const updateCategory = async (data) => {
+    try {
+      let response = await axios.put(`https://upskilling-egypt.com:3006/api/v1/Category/${catId}`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        }
+      );
+      getGategoriesList();
+      handleClose();
+      toast.success('Updated', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+        });
+      console.log(data);
+      console.log(response);
+    }
+    catch(error){
+      
+      console.log('msh tmam');
+    }
+  }
+  
+
+  // !====================> Deleting Category <======================^
   const onDeleteSubmit = async () =>{
     try{
       let response = await axios.delete(
@@ -92,38 +134,7 @@ export default function CategoriesList() {
           headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
         }
       );
-      toast.success('Item Deleted ✅',{
-        position:'bottom-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
-      console.log(response);
-      handleCloseDelete();
-      getGategoriesList();
-    }
-    catch(error){
-      console.log(error);
-    }
-  }
-
-  // ?====================> Updating Category <=================^
-  // Update Operation
-  const onUpdate = async (data) => {
-    try {
-      let response = await axios.put(
-        `https://upskilling-egypt.com:3006/api/v1/Category/${updateCategory.id}`,
-        data,
-        {
-          headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
-        }
-      );
-      toast.success('Category Updated ✅',{
+      toast.success('Item Deleted',{
         position:'bottom-right',
         autoClose: 2000,
         hideProgressBar: false,
@@ -134,23 +145,14 @@ export default function CategoriesList() {
         theme: "dark",
         transition: Bounce,
       });
-      
-      handleClose(); 
-      getGategoriesList(); 
-    } catch(error) {
+      console.log(response);
+      handleCloseDelete();
+      getGategoriesList();
+    }
+    catch(error){
       console.log(error);
     }
-  };
-
-  let toggleMenu = ()=> {
-    var menu = document.getElementById("menu");
-    if (menu.style.display === "block") {
-      menu.style.display = "none";
-    } else {
-      menu.style.display = "block";
-    }
   }
-
 
   useEffect(() => {
     getGategoriesList();
@@ -166,15 +168,15 @@ export default function CategoriesList() {
       />
       <div className={`${categoriesStyle.font} bg-info-subtl p-3 container-fluid rounded-4`}>
         <div className="row justify-content-center align-items-center">
-          <div className='col-md-6'>
-            <div>
+          <div className='col-md-6 bg-dange mb-3'>
+            <div className='bg-warnin'>
               <h4>
                 Categories Table Details
               </h4>
               <span>You can check all details</span>    
             </div>
           </div>
-          <div className='col-md-6 d-flex justify-content-end'>
+          <div className='col-md-6 d-flex justify-content-center justify-content-md-end'>
             <div>
               <button onClick={handleShow} className='btn btn-success py-2'>Add new category</button>
             </div>
@@ -182,21 +184,26 @@ export default function CategoriesList() {
         </div>
         
         <ul className="list-group mt-3 rounded-4">
-          <li className="list-group-item fw-semibold bg-secondary-subtle py-3 text-white d-flex justify-content-between align-items-center">
-            <div className="col-2 text-black">#</div>
-            <div className="col-2 text-black">Category Name</div>
-            <div className="col-2 text-black">Creation Date</div>
-            <div className="col-2 text-black">Actions</div>
+            <li className="list-group-item bg-dange fw-semibold bg-secondary-subtle py-3 text-white d-flex justify-content-between align-items-center">
+              <div className="row w-100">
+                <div className="col-md-3 bg-dange text-black">#</div>
+                <div className="col-md-3 bg-dange text-black">Category Name</div>
+                <div className="col-md-3 bg-dange text-black">Creation Date</div>
+                <div className="col-md-3 bg-dange text-black">Actions</div>
+              </div>
           </li>
           {categoriesList.length > 0 ? (
             categoriesList.map((category, index) => (
               <li key={category.id} className="list-group-item d-flex justify-content-between align-items-center">
-                <div className="col-2 py-2">{index + 1}</div>
-                <div className="col-2">{category.name}</div>
-                <div className="col-2">{category.creationDate}</div>
-                <div className='col-2'>
-                  <i onClick={() => handleUpdateClick(category)} className='update btn p-0 fa-solid fa-edit fs-5 text-warning me-3'></i>
-                  <i onClick={() => handleShowDelete(category.id)} className='btn p-0 fa-solid fa-trash fs-5 text-danger'></i>
+                <div className="row w-100">
+                  <div className="col-md-3 py-2">{index + 1}</div>
+                  <div className="col-md-3">{category.name}</div>
+                  <div className="col-md-3">{category.creationDate}</div>
+                  <div className='col-md-3 bg-body-secondar bg-info-subtl w-fit p-md-0 px-md-3 px-lg- rounded-3 d-flex justify-content-center align-items-center'>
+                    <i onClick={() => handleShow(category)} className='update btn p-0 fa-solid fa-edit fs-5 text-warning me-3'></i>
+                    <i onClick={() => handleShowDelete(category.id)} className='btn p-0 fa-solid fa-trash fs-5 text-danger'></i>
+                  </div>
+
                 </div>
               </li>
             ))
@@ -208,16 +215,16 @@ export default function CategoriesList() {
         </ul>
 
 
-      {/*=======================> Add Modal<======================== */}
-      <Modal show={show} onHide={handleClose}>
+      {/*=======================> Add Modal <======================== */}
+      <Modal className='bg-dange px-3' show={show} onHide={handleClose}>
         <Modal.Header className='d-flex justify-content-between'>
-          <Modal.Title>Add Category</Modal.Title>
+          <Modal.Title>{modalTitle}</Modal.Title>
           <div className={categoriesStyle.btnClose} onClick={handleClose}>
             <i className={`${categoriesStyle.iClose} fa-solid fa-xmark`}></i>
           </div>
         </Modal.Header>
         <Modal.Body className='mt-5 mb-1'>
-          <form action="" onSubmit={handleSubmit(onSubmit)}>
+          <form action="" onSubmit={handleSubmit(catId ? updateCategory : addCategory)}>
             <input type="text"
              className="form-control border-0 py-2 mb-3 bg-body-tertiary" 
              placeholder='Category Name'
@@ -232,20 +239,20 @@ export default function CategoriesList() {
              {errors.name && <p className='alert alert-danger py-2'>{errors.name.message}</p>}
             <hr />
             <div className='d-flex justify-content-end'>
-              <button type='submit' className='btn btn-success px-4'>Save</button>
+              <button type='submit' className='btn btn-success px-4'>{buttonText}</button>
             </div>
           </form>
         </Modal.Body>
       </Modal>
 
       {/*=======================> Delete Modal <======================== */}
-      <Modal show={showDelete} onHide={handleCloseDelete}>
+      <Modal className='d-flex flex-column justify-content-center px-3' show={showDelete} onHide={handleCloseDelete}>
         <Modal.Header className='d-flex justify-content-end'>
         <div className={categoriesStyle.btnClose} onClick={handleCloseDelete}>
             <i className={`${categoriesStyle.iClose} fa-solid fa-xmark`}></i>
           </div>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='p-4'>
           <DeleteData title="Delete this Category?"/>
         </Modal.Body>
         <Modal.Footer>
@@ -253,37 +260,6 @@ export default function CategoriesList() {
             Delete
           </Button>
         </Modal.Footer>
-      </Modal>
-
-      {/*=======================> Delete Modal <======================== */}
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header className='d-flex justify-content-between'>
-          <Modal.Title>{updateCategory ? 'Update Category' : 'Add Category'}</Modal.Title>
-          <div className={categoriesStyle.btnClose} onClick={handleClose}>
-            <i className={`${categoriesStyle.iClose} fa-solid fa-xmark`}></i>
-          </div>
-        </Modal.Header>
-        <Modal.Body className='mt-5 mb-1'>
-          <form action="" onSubmit={handleSubmit(updateCategory ? onUpdate : onSubmit)}>
-            <input type="text"
-            className="form-control border-0 py-2 mb-3 bg-body-tertiary" 
-            placeholder='Category Name'
-            {...register('name', {
-              required: 'Category Name is required!',
-              pattern: {
-                value: /^[a-zA-Z\s-]+$/,
-                message: 'Invalid Category Name'
-              }
-            })}
-            defaultValue={updateCategory ? updateCategory.name : ''}
-            />
-            {errors.name && <p className='alert alert-danger py-2'>{errors.name.message}</p>}
-            <hr />
-            <div className='d-flex justify-content-end'>
-              <button type='submit' className='btn btn-success px-4'>{updateCategory ? 'Update' : 'Save'}</button>
-            </div>
-          </form>
-        </Modal.Body>
       </Modal>
 
       </div>

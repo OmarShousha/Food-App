@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { jwtDecode } from 'jwt-decode'
 import { RecipesData } from './Modules/RecipesModules/Components/RecipesData/RecipesData'
+import { VerifyAccount } from './Modules/AuthenticationModule/Components/verifyAccount/VerifyAccount'
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         {path:'',element: <Login/>},
         {path:'login',element: <Login/>},
         {path:'register',element: <Register/>},
+        {path:'verifyaccount',element: <VerifyAccount/>},
         {path:'forgetpass',element: <ForgetPass/>},
         {path:'resetpass',element: <ResetPass/>}
       ] 

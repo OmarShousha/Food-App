@@ -83,7 +83,7 @@ export default function RecipesList() {
       />
       <div className={`${categoriesStyle.font} bg-info-subtl p-3 container-fluid rounded-4`}>
         <div className="row justify-content-center align-items-center">
-          <div className='col-md-6'>
+          <div className='col-md-6 mb-3'>
             <div>
               <h4>
                 Recipes Table Details
@@ -91,7 +91,7 @@ export default function RecipesList() {
               <span>You can check all details</span>    
             </div>
           </div>
-          <div className='col-md-6 d-flex justify-content-end'>
+          <div className='col-md-6 d-flex justify-content-center'>
             <div>
               <button onClick={goToRecipeData} className='btn btn-success py-2'>Add new recipe</button>
             </div>
@@ -100,38 +100,41 @@ export default function RecipesList() {
 
         <ul className="list-group mt-3 rounded-4">
           <li className="list-group-item fw-semibold bg-secondary-subtle py-3 text-white d-flex justify-content-between align-items-center">
-            <div className="col-1 text-black">#</div>
-            <div className="col text-black">Recipe Name</div>
-            <div className="col text-black">Image</div>
-            <div className="col text-black">Price</div>
-            <div className="col text-black">Description</div>
-            <div className="col text-black">Category</div>
-            <div className="col text-black">Tag</div>
-            <div className="col text-black">Actions</div>
+            <div className="row w-100 justify-content-lg-around">
+              <div className="col-md-1 bg-primar pt-lg-3 text-black">#</div>
+              <div className="col-md-1 bg-primar pt-lg-3 text-black">Recipe Name</div>
+              <div className="col-md-1 bg-primar pt-lg-3 text-black">Image</div>
+              <div className="col-md-1 bg-primar pt-lg-3 text-black">Price</div>
+              <div className="col-md-1 bg-primar pt-lg-3 text-black">Description</div>
+              <div className="col-md-1 bg-primar pt-lg-3 text-black">Category</div>
+              <div className="col-md-1 bg-primar pt-lg-3 text-black">Tag</div>
+              <div className="col-md-1 bg-primar pt-lg-3 text-black">Actions</div>
+            </div>
           </li>
           {recipesList.length > 0 ? (recipesList.map((recipe,index) =>(
             <li key={recipe.id} className="list-group-item d-flex justify-content-between align-items-center">
-              <div className='col-1'>{index +1}</div>
-              <div className='col'>{recipe.name}</div>
-
-              {/* <div className='col'>{recipe.imagePath ? 
-              <img className='w-50 rounded-3' src={'https://upskilling-egypt.com:3006/'+recipe.imagePath}  ></img>:<img src={NoData}></img>}</div> */}
-              <div className='col'>
-                {recipe.imagePath ? 
-                  <img className='w-50 rounded-3' src={`https://upskilling-egypt.com:3006/${recipe.imagePath}`} alt={recipe.name} />
-                  :
-                  <img src={NoDataImg} className='w-50 p-3' alt="No Image" />
-                }
-              </div>
-
-              <div className='col'>{recipe.price}</div>
-              <div className='col'>{recipe.description}</div>
-              <div className='col'>{recipe.category && recipe.category.length > 0 && recipe.category[0].name ? recipe.category[0].name : 'No Category'}</div>
-              <div className='col'>{recipe.tag.name}</div>
-              <div className='col'>
-                  <i onClick={() => handleUpdateClick(category)} className='update btn p-0 fa-solid fa-edit fs-5 text-warning me-3'></i>
-                  <i onClick={() => handleShow(recipe.id) } className='btn p-0 fa-solid fa-trash fs-5 text-danger'></i>
+              <div className="row w-100 justify-content-lg-around ">
+                <div className='col-md-1'>{index +1}</div>
+                <div className='col-md-1'>{recipe.name}</div>
+                <div className='col-md-1'>
+                  {recipe.imagePath ? 
+                    <img className='w-100 rounded-3' src={`https://upskilling-egypt.com:3006/${recipe.imagePath}`} alt={recipe.name} />
+                    :
+                    <img src={NoDataImg} className='recipe-img p-3' alt="No Image" />
+                  }
                 </div>
+                <div className='col-md-1'>{recipe.price}</div>
+                <div className='col-md-1'>{recipe.description}</div>
+                <div className='col-md-1'>
+                  {recipe.category && recipe.category.length > 0 && recipe.category[0].name ? recipe.category[0].name : 'No Category'}
+                </div>
+                <div className='col-md-1'>{recipe.tag.name}</div>
+                <div className='col-md-1'>
+                    <i onClick={() => handleUpdateClick(category)} className='update btn p-0 fa-solid fa-edit fs-5 text-warning me-3'></i>
+                    <i onClick={() => handleShow(recipe.id) } className='btn p-0 fa-solid fa-trash fs-5 text-danger'></i>
+                </div>
+
+              </div>
             </li>
           ))):(
             <li className="list-group-item">
