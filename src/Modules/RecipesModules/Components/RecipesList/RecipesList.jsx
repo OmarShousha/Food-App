@@ -28,15 +28,25 @@ export default function RecipesList() {
 
   const navigate = useNavigate('')
   //*=============>get<=============>
-  let getRecipesList = async ()=>{
+  let getRecipesList = async (name)=>{
     try{
-      let response = await axios.get('https://upskilling-egypt.com:3006/api/v1/Recipe/?pageSize=10&pageNumber=1',{headers: {Authorization:`Bearer ${localStorage.getItem('token')}`}});
+      let response = await axios.get('https://upskilling-egypt.com:3006/api/v1/Recipe/?pageSize=10&pageNumber=1',
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          params: {
+            name: name,
+          }
+        });
       setRecipesList(response.data.data);
       console.log(response);
     }
     catch(error){
       console.log(error);
     }
+  }
+
+  const getNameValue = (input) => {
+    getRecipesList(input.target.value);
   }
 
   let goToRecipeData = () =>{
@@ -91,16 +101,50 @@ export default function RecipesList() {
               <span>You can check all details</span>    
             </div>
           </div>
-          <div className='col-md-6 d-flex justify-content-center'>
+          <div className='col-md-6 d-flex justify-content-center justify-content-md-end'>
             <div>
               <button onClick={goToRecipeData} className='btn btn-success py-2'>Add new recipe</button>
             </div>
           </div>
         </div>
+        <div className="filteration mt-3 mb-4">
+          <div className="row">
+
+            {/* SEARCH BY NAME <================ */}
+            <div className="col-md-6">
+              <input
+                type="text"
+                className='form-control bg-info-subtle'
+                placeholder='Search by recipe name..'
+                onChange={getNameValue}
+              />
+
+            </div>
+
+            {/* SEARCH BY  */}
+            <div className="col-md-3">
+              <div>
+                <select className='form-control bg-info-subtle'>
+                  <option value="">Test</option>
+                </select>
+              </div>
+            </div>
+
+            {/* SEARCH BY  */}
+            <div className="col-md-3">
+              <div>
+                <select className='form-control bg-info-subtle'>
+                  <option value="">Test</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         <ul className="list-group mt-3 rounded-4">
           <li className="list-group-item fw-semibold bg-secondary-subtle py-3 text-white d-flex justify-content-between align-items-center">
-            <div className="row w-100 justify-content-lg-around">
+            <div className="row w-100 justify-content-md-around justify-content-lg-between">
               <div className="col-md-1 bg-primar pt-lg-3 text-black">#</div>
               <div className="col-md-1 bg-primar pt-lg-3 text-black">Recipe Name</div>
               <div className="col-md-1 bg-primar pt-lg-3 text-black">Image</div>
@@ -113,14 +157,14 @@ export default function RecipesList() {
           </li>
           {recipesList.length > 0 ? (recipesList.map((recipe,index) =>(
             <li key={recipe.id} className="list-group-item d-flex justify-content-between align-items-center">
-              <div className="row w-100 justify-content-lg-around ">
+              <div className="row w-100 justify-content-md-around justify-content-lg-between ">
                 <div className='col-md-1'>{index +1}</div>
                 <div className='col-md-1'>{recipe.name}</div>
                 <div className='col-md-1'>
                   {recipe.imagePath ? 
-                    <img className='w-100 rounded-3' src={`https://upskilling-egypt.com:3006/${recipe.imagePath}`} alt={recipe.name} />
+                    <img className='recipe-img bg-dange text-start rounded-3' src={`https://upskilling-egypt.com:3006/${recipe.imagePath}`} alt={recipe.name} />
                     :
-                    <img src={NoDataImg} className='recipe-img p-3' alt="No Image" />
+                    <img src={NoDataImg} className='recipe-img p-3 bg-primar rounded-3' alt="No Image" />
                   }
                 </div>
                 <div className='col-md-1'>{recipe.price}</div>
@@ -129,7 +173,7 @@ export default function RecipesList() {
                   {recipe.category && recipe.category.length > 0 && recipe.category[0].name ? recipe.category[0].name : 'No Category'}
                 </div>
                 <div className='col-md-1'>{recipe.tag.name}</div>
-                <div className='col-md-1'>
+                <div className='col-md-1 bg-primar'>
                     <i onClick={() => handleUpdateClick(category)} className='update btn p-0 fa-solid fa-edit fs-5 text-warning me-3'></i>
                     <i onClick={() => handleShow(recipe.id) } className='btn p-0 fa-solid fa-trash fs-5 text-danger'></i>
                 </div>
