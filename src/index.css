@@ -87,8 +87,6 @@ p{
 
 
 /*& =========================> Start SideBar <========================== */
-
-
 .sidebar-container .ps-sidebar-container{
   color: white;
   background-color: #1F263E;
@@ -104,16 +102,7 @@ p{
   & .ps-menu-button:hover{
     background-color: #00924D1A;
   }
-  /* & .menu-img{
-    max-width: 450%; 
-    transition: max-width 0.15s ease; 
-  }
-  & .menu-img.collapsed {
-    max-width: 100px;
-  } */
 }
-
-
 /*& =========================> End SideBar <========================== */
 
 

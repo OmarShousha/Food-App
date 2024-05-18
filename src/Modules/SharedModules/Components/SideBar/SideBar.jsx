@@ -51,7 +51,8 @@ export default function SideBar() {
   //*==============>>Submitting to change password<<================//
   const onSubmit = async (data) => {
     try {
-      let response = await axios.put('https://upskilling-egypt.com:3006/api/v1/Users/ChangePassword',data,{
+      let response = await axios.put('https://upskilling-egypt.com:3006/api/v1/Users/ChangePassword', data,
+        {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}`}
         });
         toast.success(response.data.message,{
@@ -90,17 +91,8 @@ export default function SideBar() {
     <>
     <div className="sidebar-container">
       <Sidebar collapsed={isCollapse} className='border-0' >
-        {/* rootStyles={{
-          [`.${sidebarClasses.container}`]: {
-            backgroundColor: 'red',
-          },
-      }} */}
+        
         <Menu className='bg-inf py-5'>
-
-          {/* <MenuItem 
-          onClick={handleCollapse} 
-          icon={<img src={toggleLogo} 
-          className={`  mt-3 menu-img ${isCollapse ? 'collapsed' : ''}`} ></img>}></MenuItem> */}
           <MenuItem 
           onClick={handleCollapse} icon={<i className='fa fa-list fs-4'></i>}></MenuItem>
 
