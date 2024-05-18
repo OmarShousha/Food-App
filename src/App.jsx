@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, createHashRouter } from 'react-router-dom'
 import AuthLayout from './Modules/SharedModules/Components/AuthLayout/AuthLayout'
 import MasterLayout from './Modules/SharedModules/Components/MasterLayout/MasterLayout'
 import Dashboard from './Modules/HomeModule/Components/Dashboard/Dashboard'
@@ -34,7 +34,7 @@ function App() {
   }, [])
   
 
-  let routes = createBrowserRouter([
+  let routes = createHashRouter([
     {
       path: '/dashboard',
       element: <MasterLayout/>,
