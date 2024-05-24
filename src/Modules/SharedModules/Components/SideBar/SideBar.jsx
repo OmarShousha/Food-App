@@ -101,7 +101,7 @@ export default function SideBar() {
           <MenuItem icon={<i className="fa-solid fa-list"></i>} component={<Link to="recipes" />}> Recipes</MenuItem>
           <MenuItem icon={<i className="fa-solid fa-layer-group"></i>} component={<Link to="categories" />}> Categories</MenuItem>
           <MenuItem onClick={handleShow} icon={<i className="fa-solid fa-unlock-keyhole"></i>}> Change Password</MenuItem>
-          <MenuItem onClick={logout} icon={<i className="fa fa-sign-out"></i>}> Logout</MenuItem>
+          <MenuItem onClick={logout} icon={<i className="fa-solid fa-sign-out"></i>}> Logout</MenuItem>
         </Menu>
         </Sidebar>
 
